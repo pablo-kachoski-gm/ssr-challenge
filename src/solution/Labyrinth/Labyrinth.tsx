@@ -1,5 +1,4 @@
 import React from "react";
-import style from "styled-components";
 import {
   isOutsideRadius,
   getCellType,
@@ -10,27 +9,13 @@ import { UNLIMITED_MOVEMENTS } from "./constants/constants";
 import Cell from "../cells/Cell";
 import { Props } from "./interfaces/labyrinth";
 import { Position } from "./types/position";
-import { PanelSubtitle, GameEndMessage } from "./components";
-
-const GameInfoPanel = style.div`
-  background-color: #80808078;
-  padding: 30px 20px;
-  min-height: 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-const GameLabyrinth = style.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  background-color: #b0d7e2;
-  padding: 30px 20px;
-  min-height: 600px;
-`;
+import {
+  GameEndMessage,
+  GameInfoPanel,
+  GameLabyrinth,
+  GameActions,
+  RefreshButton,
+} from "./components";
 
 const Labyrinth = (props: Props) => {
   const {
@@ -48,9 +33,10 @@ const Labyrinth = (props: Props) => {
   const [currentPosition, setCurrentPosition] = React.useState<Position>(
     startingPosition,
   );
+  const currentPositionRef = React.useRef(startingPosition);
+
   const currentX = currentPosition[0];
   const currentY = currentPosition[1];
-  const currentPositionRef = React.useRef(startingPosition);
   const hasReachedTarget = (currentX === targetPosition[0] &&
     currentY === targetPosition[1]);
   const won =
@@ -58,6 +44,12 @@ const Labyrinth = (props: Props) => {
     hasReachedTarget;
   const lost = (0 === availableMovements) &&
     !hasReachedTarget;
+
+  const onRefresh = () => {
+    setAvailableMovements(moveLimit);
+    setCurrentPosition(startingPosition);
+    currentPositionRef.current = startingPosition;
+  };
 
   React.useEffect(() => {
     const keyPressHandler = (e: any) => {
@@ -143,6 +135,9 @@ const Labyrinth = (props: Props) => {
             </div>
           )}
       </GameLabyrinth>
+      <GameActions>
+        <RefreshButton type="button" onClick={onRefresh} value="restart" />
+      </GameActions>
     </>
   );
 };
