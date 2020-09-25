@@ -18,25 +18,30 @@ export const GameLabyrinth = style.div`
 
   background-color: #b0d7e2;
   padding: 30px 20px;
-  min-height: 600px;
+  min-height: 400px;
 `;
 export const GameActions = style.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 30px 20px;
 
   background-color: #2e8aa5;
   min-height: 100px;
+
+  &>*:not(:first-child) {
+    margin-top: 20px;
+  }
 `;
-export const RefreshButton = style.input`
+export const ActionButton = style.input`
   padding: 10px 20px;
   border-radius: 10px;
   background-color: grey;
   color: white;
   text-transform: uppercase;
   font-weight: bold;
-  
+
   &:hover{
     background-color: #8e8e8e;
   }

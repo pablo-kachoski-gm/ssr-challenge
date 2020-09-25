@@ -14,7 +14,7 @@ import {
   GameInfoPanel,
   GameLabyrinth,
   GameActions,
-  RefreshButton,
+  ActionButton,
 } from "./components";
 
 const Labyrinth = (props: Props) => {
@@ -26,6 +26,7 @@ const Labyrinth = (props: Props) => {
     cellSize,
     shadow,
     visibleCells,
+    onPlayNext,
   } = props;
   const [availableMovements, setAvailableMovements] = React.useState<number>(
     moveLimit,
@@ -101,7 +102,7 @@ const Labyrinth = (props: Props) => {
           <GameEndMessage
             color="#603ad2"
             data-testid="win-message"
-            text={" you win!!!"}
+            text={"you win!!!"}
           />}
       </GameInfoPanel>
       <GameLabyrinth>
@@ -136,7 +137,8 @@ const Labyrinth = (props: Props) => {
           )}
       </GameLabyrinth>
       <GameActions>
-        <RefreshButton type="button" onClick={onRefresh} value="restart" />
+        <ActionButton type="button" onClick={onRefresh} value="restart" />
+        <ActionButton type="button" onClick={onPlayNext} value="play next" />
       </GameActions>
     </>
   );

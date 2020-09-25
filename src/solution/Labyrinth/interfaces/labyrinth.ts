@@ -8,4 +8,5 @@ export interface Props {
   cellSize?: number;
   shadow?: boolean;
   visibleCells?: number;
+  onPlayNext?: () => void;
 }
